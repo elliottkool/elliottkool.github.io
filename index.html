@@ -18,10 +18,10 @@
       }
 
       img {
-        mix-blend-mode: multiply;
         user-select: none;
         -webkit-user-drag: none;
         pointer-events: none;
+        display: block;
       }
 
       .layout {
@@ -29,20 +29,15 @@
         align-items: flex-start;
         justify-content: center;
         width: 100vw;
-        padding: 0;
-        gap: 0;
       }
 
       .column {
-        flex: 0 0 30vw;
-      }
-
-      .column.posts-column {
-        flex: 0 0 40vw;
-      }
-
-      .column + .column {
+        flex: 0 0 38vw;
         margin-left: -4vw;
+      }
+
+      .column:first-child {
+        margin-left: 0;
       }
 
       .panel-frame {
@@ -53,33 +48,26 @@
       .panel-image {
         width: 100%;
         height: auto;
-        display: block;
-        pointer-events: none;
       }
 
       .panel-content {
         position: absolute;
+        top: 22%;
+        left: 13%;
+        right: 13%;
+        bottom: 10%;
       }
 
-      .posts-panel .panel-content {
-        top: 20%;
-        left: 8%;
-        right: 8%;
-        bottom: 8%;
-      }
-
+      /* Posts */
       .post-entry {
         position: relative;
         width: 100%;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.5rem;
       }
 
       .post-entry img {
         width: 100%;
         height: auto;
-        display: block;
-        mix-blend-mode: multiply;
-        pointer-events: none;
       }
 
       .post-link {
@@ -94,25 +82,19 @@
         text-decoration: none;
         color: #000;
         font-family: 'Comic Sans MS', cursive;
-        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
+        font-size: clamp(0.6rem, 1.3vw, 1rem);
         pointer-events: all;
         z-index: 1;
       }
 
-      .apps-panel .panel-content {
-        top: 25%;
-        left: 8%;
-        right: 8%;
-        bottom: 8%;
-      }
-
+      /* Apps */
       .app-tray {
         display: flex;
         flex-wrap: wrap;
         align-content: flex-start;
         align-items: flex-start;
         justify-content: flex-start;
-        gap: 0.5rem;
+        gap: 0.75rem;
         width: 100%;
         height: 100%;
       }
@@ -127,11 +109,11 @@
         align-items: center;
         gap: 4px;
         pointer-events: all;
-        font-size: 0.8rem;
-        width: auto;
+        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
         color: #000;
       }
 
+      /* Modal */
       .modal {
         position: fixed;
         inset: 0;
@@ -160,13 +142,13 @@
       .window-image {
         width: 100%;
         height: auto;
-        display: block;
-        mix-blend-mode: multiply;
       }
 
       .window-image-hover {
         position: absolute;
         inset: 0;
+        width: 100%;
+        height: auto;
         opacity: 0;
       }
 
@@ -195,6 +177,7 @@
         padding: 0;
         background: transparent;
         cursor: pointer;
+        pointer-events: all;
       }
     </style>
   </head>
