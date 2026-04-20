@@ -23,6 +23,7 @@
         --window-close-width: 8%;
         --window-close-height: 12%;
         --window-width: 500px;
+        --column-max-width: 500px;
       }
 
       * {
@@ -231,7 +232,7 @@
         }
 
         .column {
-          flex-basis: min(500px, 100%);
+          flex-basis: min(var(--column-max-width), 100%);
         }
       }
     </style>
