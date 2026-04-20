@@ -266,6 +266,7 @@
       const modal = document.getElementById('app-window');
       const windowFrame = modal.querySelector('.window');
       const closeHitbox = modal.querySelector('.window-close-hitbox');
+      const backdrop = modal.querySelector('.modal-backdrop');
       const openButtons = document.querySelectorAll('.js-open-window');
 
       function openWindow() {
@@ -291,7 +292,22 @@
         windowFrame.classList.remove('is-hovering-close');
       });
 
+      closeHitbox.addEventListener('focus', () => {
+        windowFrame.classList.add('is-hovering-close');
+      });
+
+      closeHitbox.addEventListener('blur', () => {
+        windowFrame.classList.remove('is-hovering-close');
+      });
+
       closeHitbox.addEventListener('click', closeWindow);
+      backdrop.addEventListener('click', closeWindow);
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeWindow();
+        }
+      });
     </script>
   </body>
 </html>
