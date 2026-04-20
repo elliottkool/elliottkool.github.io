@@ -5,189 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>elliotts place</title>
     <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        background: #fff;
-        font-family: 'Comic Sans MS', cursive;
-        overflow-x: hidden;
-      }
-
-      img {
-        user-select: none;
-        -webkit-user-drag: none;
-        pointer-events: none;
-        display: block;
-      }
-
-      .layout {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        width: 100vw;
-        padding-top: 3rem;
-      }
-
-      .column {
-        flex: 0 0 38vw;
-        margin-left: -4vw;
-      }
-
-      .column:first-child {
-        margin-left: 0;
-      }
-
-      .panel-frame {
-        position: relative;
-        width: 100%;
-      }
-
-      .panel-image {
-        width: 100%;
-        height: auto;
-      }
-
-      .posts-panel .panel-content {
-        position: absolute;
-        top: 28%;
-        left: 20%;
-        right: 20%;
-        bottom: 8%;
-        overflow: hidden;
-      }
-
-      .apps-panel .panel-content {
-        position: absolute;
-        top: 28%;
-        left: 32%;
-        right: 8%;
-        bottom: 8%;
-        overflow: hidden;
-      }
-
-      .post-entry {
-        position: relative;
-        width: 100%;
-        margin-bottom: 0.5rem;
-      }
-
-      .post-entry > img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .post-link {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #000;
-        font-family: 'Comic Sans MS', cursive;
-        font-size: clamp(0.6rem, 1.3vw, 1rem);
-        pointer-events: all;
-        z-index: 1;
-      }
-
-      .app-tray {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 0.75rem;
-        width: 100%;
-        height: 100%;
-      }
-
-      .app-icon {
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        font-family: inherit;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        pointer-events: all;
-        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
-        color: #000;
-      }
-
-      .modal {
-        position: fixed;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-      }
-
-      .modal.is-open {
-        display: flex;
-      }
-
-      .modal-backdrop {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.35);
-      }
-
-      .window {
-        position: relative;
-        width: min(500px, 90vw);
-        z-index: 1;
-      }
-
-      .window-image {
-        width: 100%;
-        height: auto;
-      }
-
-      .window-image-highlight {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: auto;
-        opacity: 0;
-      }
-
-      .window.is-hovering-close .window-image-highlight {
-        opacity: 1;
-      }
-
-      .window-content {
-        position: absolute;
-        top: 20%;
-        right: 29%;
-        bottom: 16%;
-        left: 34%;
-        overflow-y: auto;
-        background: rgba(255, 255, 255, 0.88);
-        padding: 0.9rem;
-      }
-
-      .window-close-hitbox {
-        position: absolute;
-        top: 8%;
-        right: 6%;
-        width: 10%;
-        height: 14%;
-        border: 0;
-        padding: 0;
-        background: transparent;
-        cursor: pointer;
-        pointer-events: all;
-      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 0; background: #fff; font-family: 'Comic Sans MS', cursive; overflow-x: hidden; }
+      img { user-select: none; -webkit-user-drag: none; pointer-events: none; display: block; }
+      .layout { display: flex; align-items: flex-start; justify-content: center; width: 100vw; padding-top: 3rem; }
+      .column { flex: 0 0 38vw; margin-left: -4vw; }
+      .column:first-child { margin-left: 0; }
+      .panel-frame { position: relative; width: 100%; }
+      .panel-image { width: 100%; height: auto; }
+      .posts-panel .panel-content { position: absolute; top: 28%; left: 27%; right: 27%; bottom: 8%; overflow: hidden; }
+      .apps-panel .panel-content { position: absolute; top: 28%; left: 32%; right: 8%; bottom: 8%; overflow: hidden; }
+      .post-entry { position: relative; width: 100%; margin-bottom: 0.5rem; }
+      .post-entry > img { width: 100%; height: auto; display: block; }
+      .post-link { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #000; font-family: 'Comic Sans MS', cursive; font-size: clamp(0.6rem, 1.3vw, 1rem); pointer-events: all; z-index: 1; }
+      .app-tray { display: flex; flex-wrap: wrap; align-content: flex-start; align-items: flex-start; justify-content: flex-start; gap: 0.75rem; width: 100%; height: 100%; }
+      .app-icon { background: transparent; border: none; cursor: pointer; font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: all; font-size: clamp(0.6rem, 1.2vw, 0.9rem); color: #000; }
+      .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; }
+      .modal.is-open { display: flex; }
+      .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+      .window { position: relative; width: min(500px, 90vw); z-index: 1; }
+      .window-image { width: 100%; height: auto; }
+      .window-image-highlight { position: absolute; inset: 0; width: 100%; height: auto; opacity: 0; }
+      .window.is-hovering-close .window-image-highlight { opacity: 1; }
+      .window-content { position: absolute; top: 20%; right: 29%; bottom: 16%; left: 34%; overflow-y: auto; background: rgba(255,255,255,0.88); padding: 0.9rem; }
+      .window-close-hitbox { position: absolute; top: 8%; right: 6%; width: 10%; height: 14%; border: 0; padding: 0; background: transparent; cursor: pointer; pointer-events: all; }
     </style>
   </head>
   <body>
@@ -197,7 +38,6 @@
           <img class="panel-image" src="assets/about.png" alt="About panel" draggable="false" oncontextmenu="return false" />
         </div>
       </section>
-
       <section class="column posts-column">
         <div class="panel-frame posts-panel">
           <img class="panel-image" src="assets/posts.png" alt="Posts panel" draggable="false" oncontextmenu="return false" />
@@ -217,7 +57,6 @@
           </div>
         </div>
       </section>
-
       <section class="column apps-column">
         <div class="panel-frame apps-panel">
           <img class="panel-image" src="assets/apptray.png" alt="Apps panel" draggable="false" oncontextmenu="return false" />
@@ -232,7 +71,6 @@
         </div>
       </section>
     </main>
-
     <div class="modal" id="app-window" aria-hidden="true">
       <div class="modal-backdrop"></div>
       <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
@@ -240,11 +78,10 @@
         <img class="window-image window-image-highlight" src="assets/windowhighlight.png" alt="" aria-hidden="true" draggable="false" oncontextmenu="return false" />
         <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
         <div class="window-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
       </div>
     </div>
-
     <script>
       const modal = document.getElementById('app-window');
       const windowFrame = modal.querySelector('.window');
@@ -253,9 +90,7 @@
       const backdrop = modal.querySelector('.modal-backdrop');
       const openButtons = document.querySelectorAll('.js-open-window');
       let lastTriggerButton = null;
-
       function getFocusableInModal() { return modal.querySelectorAll(FOCUSABLE_SELECTOR); }
-
       function openWindow(triggerButton) {
         lastTriggerButton = triggerButton;
         windowFrame.setAttribute('aria-label', triggerButton?.dataset.windowLabel || 'App window placeholder');
@@ -263,14 +98,12 @@
         modal.setAttribute('aria-hidden', 'false');
         closeHitbox.focus();
       }
-
       function closeWindow() {
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         windowFrame.classList.remove('is-hovering-close');
         if (lastTriggerButton) { lastTriggerButton.focus(); }
       }
-
       openButtons.forEach((button) => { button.addEventListener('click', () => openWindow(button)); });
       closeHitbox.addEventListener('mouseenter', () => { windowFrame.classList.add('is-hovering-close'); });
       closeHitbox.addEventListener('mouseleave', () => { windowFrame.classList.remove('is-hovering-close'); });
@@ -278,16 +111,13 @@
       closeHitbox.addEventListener('blur', () => { windowFrame.classList.remove('is-hovering-close'); });
       closeHitbox.addEventListener('click', closeWindow);
       backdrop.addEventListener('click', closeWindow);
-
       document.addEventListener('keydown', (event) => {
         if (event.key !== 'Tab' && event.key !== 'Escape') return;
-        const isModalOpen = modal.classList.contains('is-open');
-        if (!isModalOpen) return;
+        if (!modal.classList.contains('is-open')) return;
         if (event.key === 'Tab') {
           const focusable = getFocusableInModal();
           if (!focusable.length) { event.preventDefault(); return; }
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
+          const first = focusable[0], last = focusable[focusable.length - 1];
           if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
           else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
         }
