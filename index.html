@@ -54,16 +54,16 @@
       .posts-panel .panel-content {
         position: absolute;
         top: 28%;
-        left: 12%;
-        right: 12%;
+        left: 20%;
+        right: 20%;
         bottom: 8%;
         overflow: hidden;
       }
 
       .apps-panel .panel-content {
         position: absolute;
-        top: 25%;
-        left: 28%;
+        top: 28%;
+        left: 32%;
         right: 8%;
         bottom: 8%;
         overflow: hidden;
@@ -71,8 +71,8 @@
 
       .post-entry {
         position: relative;
-        width: 85%;
-        margin: 0 auto 0.5rem auto;
+        width: 100%;
+        margin-bottom: 0.5rem;
       }
 
       .post-entry > img {
@@ -194,54 +194,24 @@
     <main class="layout">
       <section class="column about-column">
         <div class="panel-frame about-panel">
-          <img
-            class="panel-image"
-            src="assets/about.png"
-            alt="About panel"
-            draggable="false"
-            oncontextmenu="return false"
-          />
+          <img class="panel-image" src="assets/about.png" alt="About panel" draggable="false" oncontextmenu="return false" />
         </div>
       </section>
 
       <section class="column posts-column">
         <div class="panel-frame posts-panel">
-          <img
-            class="panel-image"
-            src="assets/posts.png"
-            alt="Posts panel"
-            draggable="false"
-            oncontextmenu="return false"
-          />
+          <img class="panel-image" src="assets/posts.png" alt="Posts panel" draggable="false" oncontextmenu="return false" />
           <div class="panel-content">
             <div class="post-entry">
-              <img
-                src="assets/post.png"
-                alt=""
-                aria-hidden="true"
-                draggable="false"
-                oncontextmenu="return false"
-              />
+              <img src="assets/post.png" alt="" aria-hidden="true" draggable="false" oncontextmenu="return false" />
               <a href="posts/post-1.html" class="post-link">Post Title 1</a>
             </div>
             <div class="post-entry">
-              <img
-                src="assets/post.png"
-                alt=""
-                aria-hidden="true"
-                draggable="false"
-                oncontextmenu="return false"
-              />
+              <img src="assets/post.png" alt="" aria-hidden="true" draggable="false" oncontextmenu="return false" />
               <a href="posts/post-2.html" class="post-link">Post Title 2</a>
             </div>
             <div class="post-entry">
-              <img
-                src="assets/post.png"
-                alt=""
-                aria-hidden="true"
-                draggable="false"
-                oncontextmenu="return false"
-              />
+              <img src="assets/post.png" alt="" aria-hidden="true" draggable="false" oncontextmenu="return false" />
               <a href="posts/post-3.html" class="post-link">Post Title 3</a>
             </div>
           </div>
@@ -250,21 +220,10 @@
 
       <section class="column apps-column">
         <div class="panel-frame apps-panel">
-          <img
-            class="panel-image"
-            src="assets/apptray.png"
-            alt="Apps panel"
-            draggable="false"
-            oncontextmenu="return false"
-          />
+          <img class="panel-image" src="assets/apptray.png" alt="Apps panel" draggable="false" oncontextmenu="return false" />
           <div class="panel-content">
             <div class="app-tray">
-              <button
-                class="app-icon js-open-window"
-                type="button"
-                aria-label="Open App 1 placeholder window"
-                data-window-label="App 1 placeholder window"
-              >
+              <button class="app-icon js-open-window" type="button" aria-label="Open App 1 placeholder window" data-window-label="App 1 placeholder window">
                 <span aria-hidden="true">🖥️</span>
                 <span>App 1</span>
               </button>
@@ -277,29 +236,11 @@
     <div class="modal" id="app-window" aria-hidden="true">
       <div class="modal-backdrop"></div>
       <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
-        <img
-          class="window-image window-image-default"
-          src="assets/window.png"
-          alt=""
-          aria-hidden="true"
-          draggable="false"
-          oncontextmenu="return false"
-        />
-        <img
-          class="window-image window-image-highlight"
-          src="assets/windowhighlight.png"
-          alt=""
-          aria-hidden="true"
-          draggable="false"
-          oncontextmenu="return false"
-        />
+        <img class="window-image window-image-default" src="assets/window.png" alt="" aria-hidden="true" draggable="false" oncontextmenu="return false" />
+        <img class="window-image window-image-highlight" src="assets/windowhighlight.png" alt="" aria-hidden="true" draggable="false" oncontextmenu="return false" />
         <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
         <div class="window-content">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         </div>
       </div>
     </div>
@@ -307,23 +248,17 @@
     <script>
       const modal = document.getElementById('app-window');
       const windowFrame = modal.querySelector('.window');
-      const FOCUSABLE_SELECTOR =
-        'button:not([disabled]), [role="button"], [href], input, select, textarea, details, audio[controls], video[controls], [tabindex]:not([tabindex="-1"])';
+      const FOCUSABLE_SELECTOR = 'button:not([disabled]), [role="button"], [href], input, select, textarea, details, audio[controls], video[controls], [tabindex]:not([tabindex="-1"])';
       const closeHitbox = modal.querySelector('.window-close-hitbox');
       const backdrop = modal.querySelector('.modal-backdrop');
       const openButtons = document.querySelectorAll('.js-open-window');
       let lastTriggerButton = null;
 
-      function getFocusableInModal() {
-        return modal.querySelectorAll(FOCUSABLE_SELECTOR);
-      }
+      function getFocusableInModal() { return modal.querySelectorAll(FOCUSABLE_SELECTOR); }
 
       function openWindow(triggerButton) {
         lastTriggerButton = triggerButton;
-        windowFrame.setAttribute(
-          'aria-label',
-          triggerButton?.dataset.windowLabel || 'App window placeholder'
-        );
+        windowFrame.setAttribute('aria-label', triggerButton?.dataset.windowLabel || 'App window placeholder');
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         closeHitbox.focus();
@@ -333,66 +268,30 @@
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         windowFrame.classList.remove('is-hovering-close');
-        if (lastTriggerButton) {
-          lastTriggerButton.focus();
-        }
+        if (lastTriggerButton) { lastTriggerButton.focus(); }
       }
 
-      openButtons.forEach((button) => {
-        button.addEventListener('click', () => openWindow(button));
-      });
-
-      closeHitbox.addEventListener('mouseenter', () => {
-        windowFrame.classList.add('is-hovering-close');
-      });
-
-      closeHitbox.addEventListener('mouseleave', () => {
-        windowFrame.classList.remove('is-hovering-close');
-      });
-
-      closeHitbox.addEventListener('focus', () => {
-        windowFrame.classList.add('is-hovering-close');
-      });
-
-      closeHitbox.addEventListener('blur', () => {
-        windowFrame.classList.remove('is-hovering-close');
-      });
-
+      openButtons.forEach((button) => { button.addEventListener('click', () => openWindow(button)); });
+      closeHitbox.addEventListener('mouseenter', () => { windowFrame.classList.add('is-hovering-close'); });
+      closeHitbox.addEventListener('mouseleave', () => { windowFrame.classList.remove('is-hovering-close'); });
+      closeHitbox.addEventListener('focus', () => { windowFrame.classList.add('is-hovering-close'); });
+      closeHitbox.addEventListener('blur', () => { windowFrame.classList.remove('is-hovering-close'); });
       closeHitbox.addEventListener('click', closeWindow);
       backdrop.addEventListener('click', closeWindow);
 
       document.addEventListener('keydown', (event) => {
-        if (event.key !== 'Tab' && event.key !== 'Escape') {
-          return;
-        }
-
+        if (event.key !== 'Tab' && event.key !== 'Escape') return;
         const isModalOpen = modal.classList.contains('is-open');
-        if (!isModalOpen) {
-          return;
-        }
-
+        if (!isModalOpen) return;
         if (event.key === 'Tab') {
           const focusable = getFocusableInModal();
-          if (!focusable.length) {
-            event.preventDefault();
-            return;
-          }
-
+          if (!focusable.length) { event.preventDefault(); return; }
           const first = focusable[0];
           const last = focusable[focusable.length - 1];
-
-          if (event.shiftKey && document.activeElement === first) {
-            event.preventDefault();
-            last.focus();
-          } else if (!event.shiftKey && document.activeElement === last) {
-            event.preventDefault();
-            first.focus();
-          }
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
         }
-
-        if (event.key === 'Escape') {
-          closeWindow();
-        }
+        if (event.key === 'Escape') { closeWindow(); }
       });
     </script>
   </body>
