@@ -8,9 +8,12 @@
       :root {
         /* Insets tuned to the hand-drawn inner border areas of each frame image. */
         --posts-content-top: 24%;
-        --posts-content-right: 30%;
+        --posts-content-right: 22%;
         --posts-content-bottom: 15%;
-        --posts-content-left: 28%;
+        --posts-content-left: 21%;
+        --column-overlap: -1.2vw;
+        --post-entry-image-x: 48%;
+        --post-entry-image-y: 16%;
         --apps-content-top: 28%;
         --apps-content-right: 30%;
         --apps-content-bottom: 20%;
@@ -23,9 +26,6 @@
         --window-close-right: 32%;
         --window-close-width: 8%;
         --window-close-height: 12%;
-        --about-panel-width: 220px;
-        --posts-panel-width: 420px;
-        --apps-panel-width: 300px;
         --window-width: 500px;
       }
 
@@ -36,6 +36,7 @@
       body {
         margin: 0;
         min-height: 100vh;
+        overflow-x: hidden;
         background: #ffffff;
         /* TODO: Swap this placeholder with custom font when provided */
         font-family: 'Comic Sans MS', 'Comic Sans', cursive;
@@ -43,40 +44,50 @@
 
       .layout {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
         align-items: flex-start;
-        gap: 2rem;
+        width: 100vw;
+        gap: 0;
         min-height: 100vh;
-        padding: 1.5rem;
+        padding: 0;
       }
 
       .column {
         min-height: 0;
-        flex: 0 0 auto;
+        min-width: 0;
+      }
+
+      .column + .column {
+        margin-left: max(var(--column-overlap), -10px);
       }
 
       .panel-frame {
         position: relative;
-        width: fit-content;
+        width: 100%;
       }
 
-      .panel-image {
+      img {
         display: block;
+        width: 100%;
         height: auto;
         mix-blend-mode: multiply;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
       }
 
-      .about-panel-image {
-        width: min(var(--about-panel-width), 85vw);
+      .about-column {
+        flex: 0 0 20%;
       }
 
-      .posts-panel-image {
-        width: min(var(--posts-panel-width), 92vw);
+      .posts-column {
+        flex: 0 0 45%;
+        z-index: 2;
       }
 
-      .apps-panel-image {
-        width: min(var(--apps-panel-width), 90vw);
+      .apps-column {
+        flex: 0 0 35%;
       }
 
       .panel-content {
@@ -95,23 +106,65 @@
       }
 
       .posts-scroll {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.85rem;
         overflow-y: auto;
-        padding-right: 0.25rem;
+        padding: 0.2rem 0;
       }
 
-      .post-item {
-        border: 1px solid #444;
-        background: rgba(255, 255, 255, 0.92);
-        margin-bottom: 0.75rem;
-        padding: 0.75rem;
+      .posts-scroll:focus-visible {
+        outline: 2px dotted #000;
+        outline-offset: 2px;
       }
 
-      .post-item h3 {
-        margin: 0 0 0.5rem;
+      .post-entry {
+        position: relative;
+        width: 92%;
+        aspect-ratio: 5.35 / 1;
+        overflow: hidden;
       }
 
-      .post-item p {
-        margin: 0 0 0.5rem;
+      .post-entry img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: var(--post-entry-image-x) var(--post-entry-image-y);
+      }
+
+      .post-entry-title {
+        position: absolute;
+        top: 12%;
+        right: 7%;
+        bottom: 16%;
+        left: 7%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 700;
+        font-size: clamp(0.875rem, 1.35vw, 1.25rem);
+        line-height: 1.1;
+        padding: 0 0.75rem;
+        pointer-events: none;
+      }
+
+      .post-entry-hitbox {
+        position: absolute;
+        top: 12%;
+        right: 7%;
+        bottom: 16%;
+        left: 7%;
+        display: block;
+        border-radius: 3px;
+      }
+
+      .post-entry-hitbox:focus-visible {
+        outline: 2px dotted #000;
+        outline-offset: 2px;
       }
 
       .placeholder-button {
@@ -183,13 +236,6 @@
         z-index: 1;
       }
 
-      .window-image {
-        display: block;
-        width: 100%;
-        height: auto;
-        mix-blend-mode: multiply;
-      }
-
       .window-image-hover {
         position: absolute;
         inset: 0;
@@ -226,55 +272,42 @@
   </head>
   <body>
     <main class="layout">
-      <section class="column">
+      <section class="column about-column">
         <div class="panel-frame about-panel">
-          <img class="panel-image about-panel-image" src="assets/about.png" alt="About panel" />
+          <img src="assets/about.png" alt="About panel" />
         </div>
       </section>
 
-      <section class="column">
+      <section class="column posts-column">
         <div class="panel-frame posts-panel">
-          <img class="panel-image posts-panel-image" src="assets/posts.png" alt="Posts panel" />
+          <img src="assets/posts.png" alt="Posts panel" />
           <div class="panel-content">
-            <!-- TODO: Replace placeholder posts with real post content/links -->
             <div class="posts-scroll">
-              <article class="post-item">
-                <h3>Post Title 1</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                  eiusmod tempor incididunt ut labore.
-                </p>
-                <!-- TODO: Replace placeholder button styling with hand-drawn image button -->
-                <button class="placeholder-button" type="button">read more</button>
+              <article class="post-entry">
+                <img src="assets/post.png" alt="" />
+                <h3 class="post-entry-title" id="post-title-1">Post Title 1</h3>
+                <a class="post-entry-hitbox" href="posts/post-1.html" aria-labelledby="post-title-1"></a>
               </article>
 
-              <article class="post-item">
-                <h3>Post Title 2</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <button class="placeholder-button" type="button">read more</button>
+              <article class="post-entry">
+                <img src="assets/post.png" alt="" />
+                <h3 class="post-entry-title" id="post-title-2">Post Title 2</h3>
+                <a class="post-entry-hitbox" href="posts/post-2.html" aria-labelledby="post-title-2"></a>
               </article>
 
-              <article class="post-item">
-                <h3>Post Title 3</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <button class="placeholder-button" type="button">read more</button>
+              <article class="post-entry">
+                <img src="assets/post.png" alt="" />
+                <h3 class="post-entry-title" id="post-title-3">Post Title 3</h3>
+                <a class="post-entry-hitbox" href="posts/post-3.html" aria-labelledby="post-title-3"></a>
               </article>
             </div>
-
-            <button class="placeholder-button" type="button">View All Posts</button>
           </div>
         </div>
       </section>
 
-      <section class="column">
+      <section class="column apps-column">
         <div class="panel-frame apps-panel">
-          <img class="panel-image apps-panel-image" src="assets/apptray.png" alt="Apps panel" />
+          <img src="assets/apptray.png" alt="Apps panel" />
           <div class="panel-content">
             <div class="app-tray">
               <button
