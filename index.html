@@ -59,7 +59,7 @@
       }
 
       .column + .column {
-        margin-left: var(--column-overlap);
+        margin-left: max(var(--column-overlap), -10px);
       }
 
       .panel-frame {
@@ -282,7 +282,7 @@
         <div class="panel-frame posts-panel">
           <img src="assets/posts.png" alt="Posts panel" />
           <div class="panel-content">
-            <div class="posts-scroll" tabindex="0">
+            <div class="posts-scroll">
               <article class="post-entry">
                 <img src="assets/post.png" alt="" />
                 <h3 class="post-entry-title" id="post-title-1">Post Title 1</h3>
