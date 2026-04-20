@@ -272,7 +272,7 @@
 
       function getFocusableInModal() {
         return modal.querySelectorAll(
-          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button:not([disabled]), [role="button"], [href], input, select, textarea, details, audio[controls], video[controls], [tabindex]:not([tabindex="-1"])'
         );
       }
 
@@ -316,7 +316,16 @@
       backdrop.addEventListener('click', closeWindow);
 
       document.addEventListener('keydown', (event) => {
-        if (event.key === 'Tab' && modal.classList.contains('is-open')) {
+        if (event.key !== 'Tab' && event.key !== 'Escape') {
+          return;
+        }
+
+        const isModalOpen = modal.classList.contains('is-open');
+        if (!isModalOpen) {
+          return;
+        }
+
+        if (event.key === 'Tab') {
           const focusable = getFocusableInModal();
           if (!focusable.length) {
             event.preventDefault();
@@ -335,7 +344,7 @@
           }
         }
 
-        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        if (event.key === 'Escape') {
           closeWindow();
         }
       });
