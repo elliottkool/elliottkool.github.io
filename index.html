@@ -33,10 +33,10 @@
         min-height: 0;
       }
 
-      .about-placeholder {
+      .about-panel-image {
         height: 100%;
-        border: 2px dashed #bdbdbd;
-        border-radius: 8px;
+        width: 100%;
+        display: block;
       }
 
       .panel {
@@ -58,7 +58,7 @@
       }
 
       .posts-panel {
-        background-image: url('assets/posts-panel.png');
+        background-image: url('assets/posts.png');
       }
 
       .posts-panel .panel-content {
@@ -100,7 +100,7 @@
       }
 
       .apps-panel {
-        background-image: url('assets/apps-panel.png');
+        background-image: url('assets/apptray.png');
       }
 
       .app-tray {
@@ -156,7 +156,7 @@
       }
 
       .window.is-hovering-close {
-        background-image: url('assets/window-hover.png');
+        background-image: url('assets/windowhover.png');
       }
 
       .window-content {
@@ -187,8 +187,7 @@
     <main class="layout">
       <section class="column">
         <!-- ABOUT: placeholder -->
-        <!-- TODO: Replace this container with the hand-drawn About image/asset -->
-        <div class="about-placeholder"></div>
+        <img class="about-panel-image" src="assets/about.png" alt="About panel" />
       </section>
 
       <section class="column">
