@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elliott Kool</title>
+    <style>
+      :root {
+        --panel-header-height: 78px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #ffffff;
+        /* TODO: Swap this placeholder with custom font when provided */
+        font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 20% 50% 30%;
+        gap: 1rem;
+        min-height: 100vh;
+        padding: 1rem;
+      }
+
+      .column {
+        min-height: 0;
+      }
+
+      .about-placeholder {
+        height: 100%;
+        border: 2px dashed #bdbdbd;
+        border-radius: 8px;
+      }
+
+      .panel {
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      .panel-content {
+        position: absolute;
+        top: var(--panel-header-height);
+        right: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        overflow: hidden;
+      }
+
+      .posts-panel {
+        background-image: url('assets/posts-panel.png');
+      }
+
+      .posts-panel .panel-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .posts-scroll {
+        overflow-y: auto;
+        padding-right: 0.25rem;
+      }
+
+      .post-item {
+        border: 1px solid #444;
+        background: rgba(255, 255, 255, 0.92);
+        margin-bottom: 0.75rem;
+        padding: 0.75rem;
+      }
+
+      .post-item h3 {
+        margin: 0 0 0.5rem;
+      }
+
+      .post-item p {
+        margin: 0 0 0.5rem;
+      }
+
+      .placeholder-button {
+        border: 1px solid #000;
+        background: #f4f4f4;
+        padding: 0.4rem 0.75rem;
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .placeholder-button:hover {
+        background: #e7e7e7;
+      }
+
+      .apps-panel {
+        background-image: url('assets/apps-panel.png');
+      }
+
+      .app-tray {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(72px, 1fr));
+        gap: 0.75rem;
+        align-content: start;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .app-icon {
+        border: 1px solid #000;
+        background: rgba(255, 255, 255, 0.92);
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        gap: 0.25rem;
+      }
+
+      .app-icon span[aria-hidden='true'] {
+        font-size: 1.25rem;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .modal.is-open {
+        display: flex;
+      }
+
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+      }
+
+      .window {
+        position: relative;
+        width: min(600px, 90vw);
+        height: min(420px, 85vh);
+        background: url('assets/window.png') no-repeat center / 100% 100%;
+        z-index: 1;
+      }
+
+      .window.is-hovering-close {
+        background-image: url('assets/window-hover.png');
+      }
+
+      .window-content {
+        position: absolute;
+        top: 72px;
+        right: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        overflow-y: auto;
+        background: rgba(255, 255, 255, 0.88);
+        padding: 0.9rem;
+      }
+
+      .window-close-hitbox {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 48px;
+        height: 40px;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="layout">
+      <section class="column">
+        <!-- ABOUT: placeholder -->
+        <!-- TODO: Replace this container with the hand-drawn About image/asset -->
+        <div class="about-placeholder"></div>
+      </section>
+
+      <section class="column">
+        <div class="panel posts-panel">
+          <div class="panel-content">
+            <!-- TODO: Replace placeholder posts with real post content/links -->
+            <div class="posts-scroll">
+              <article class="post-item">
+                <h3>Post Title 1</h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                  eiusmod tempor incididunt ut labore.
+                </p>
+                <!-- TODO: Replace placeholder button styling with hand-drawn image button -->
+                <button class="placeholder-button" type="button">read more</button>
+              </article>
+
+              <article class="post-item">
+                <h3>Post Title 2</h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                  enim ad minim veniam, quis nostrud exercitation.
+                </p>
+                <button class="placeholder-button" type="button">read more</button>
+              </article>
+
+              <article class="post-item">
+                <h3>Post Title 3</h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <button class="placeholder-button" type="button">read more</button>
+              </article>
+            </div>
+
+            <button class="placeholder-button" type="button">View All Posts</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="column">
+        <div class="panel apps-panel">
+          <div class="panel-content">
+            <div class="app-tray">
+              <button
+                class="app-icon js-open-window"
+                type="button"
+                aria-label="Open App 1 placeholder window"
+                data-window-label="App 1 placeholder window"
+              >
+                <span aria-hidden="true">🖥️</span>
+                <span>App 1</span>
+              </button>
+
+              <!-- TODO: Add additional app icons (about 6 total planned) -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal" id="app-window" aria-hidden="true">
+      <div class="modal-backdrop"></div>
+      <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
+        <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
+        <div class="window-content">
+          <!-- TODO: Replace this placeholder text with real app content -->
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById('app-window');
+      const windowFrame = modal.querySelector('.window');
+      const FOCUSABLE_SELECTOR =
+        'button:not([disabled]), [role="button"], [href], input, select, textarea, details, audio[controls], video[controls], [tabindex]:not([tabindex="-1"])';
+      const closeHitbox = modal.querySelector('.window-close-hitbox');
+      const backdrop = modal.querySelector('.modal-backdrop');
+      const openButtons = document.querySelectorAll('.js-open-window');
+      let lastTriggerButton = null;
+
+      function getFocusableInModal() {
+        return modal.querySelectorAll(FOCUSABLE_SELECTOR);
+      }
+
+      function openWindow(triggerButton) {
+        lastTriggerButton = triggerButton;
+        windowFrame.setAttribute(
+          'aria-label',
+          triggerButton?.dataset.windowLabel || 'App window placeholder'
+        );
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        closeHitbox.focus();
+      }
+
+      function closeWindow() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        windowFrame.classList.remove('is-hovering-close');
+        if (lastTriggerButton) {
+          lastTriggerButton.focus();
+        }
+      }
+
+      openButtons.forEach((button) => {
+        button.addEventListener('click', () => openWindow(button));
+      });
+
+      closeHitbox.addEventListener('mouseenter', () => {
+        windowFrame.classList.add('is-hovering-close');
+      });
+
+      closeHitbox.addEventListener('mouseleave', () => {
+        windowFrame.classList.remove('is-hovering-close');
+      });
+
+      closeHitbox.addEventListener('focus', () => {
+        windowFrame.classList.add('is-hovering-close');
+      });
+
+      closeHitbox.addEventListener('blur', () => {
+        windowFrame.classList.remove('is-hovering-close');
+      });
+
+      closeHitbox.addEventListener('click', closeWindow);
+      backdrop.addEventListener('click', closeWindow);
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Tab' && event.key !== 'Escape') {
+          return;
+        }
+
+        const isModalOpen = modal.classList.contains('is-open');
+        if (!isModalOpen) {
+          return;
+        }
+
+        if (event.key === 'Tab') {
+          const focusable = getFocusableInModal();
+          if (!focusable.length) {
+            event.preventDefault();
+            return;
+          }
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+
+        if (event.key === 'Escape') {
+          closeWindow();
+        }
+      });
+    </script>
+  </body>
+</html>
