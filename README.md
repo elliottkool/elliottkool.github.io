@@ -1,2 +1,2 @@
 # elliottkool.github.io
-website
+just a website for fun. i clearly have little idea of what im doing. 
