@@ -34,7 +34,15 @@
       }
 
       .column {
-        flex: 0 0 33vw;
+        flex: 0 0 30vw;
+      }
+
+      .column.posts-column {
+        flex: 0 0 40vw;
+      }
+
+      .column + .column {
+        margin-left: -4vw;
       }
 
       .panel-frame {
@@ -62,41 +70,54 @@
 
       .post-entry {
         position: relative;
-        width: 92%;
-        margin: 0 auto 0.5rem auto;
+        width: 100%;
+        margin-bottom: 0.4rem;
       }
 
       .post-entry img {
-        width: 92%;
+        width: 100%;
+        height: auto;
         display: block;
-        margin: 0 auto;
+        mix-blend-mode: multiply;
+        pointer-events: none;
       }
 
-      .post-entry a {
+      .post-link {
         position: absolute;
-        inset: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
         color: #000;
         font-family: 'Comic Sans MS', cursive;
-        font-size: clamp(0.7rem, 1.5vw, 1rem);
+        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
         pointer-events: all;
+        z-index: 1;
       }
 
       .apps-panel .panel-content {
         top: 25%;
-        left: 10%;
-        right: 10%;
-        bottom: 10%;
+        left: 8%;
+        right: 8%;
+        bottom: 8%;
+      }
+
+      .app-tray {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        width: 100%;
+        height: 100%;
       }
 
       .app-icon {
-        position: absolute;
-        top: 30%;
-        left: 50%;
-        transform: translateX(-50%);
         background: transparent;
         border: none;
         cursor: pointer;
@@ -106,6 +127,8 @@
         align-items: center;
         gap: 4px;
         pointer-events: all;
+        font-size: 0.8rem;
+        width: auto;
         color: #000;
       }
 
@@ -177,7 +200,7 @@
   </head>
   <body>
     <main class="layout">
-      <section class="column">
+      <section class="column about-column">
         <div class="panel-frame about-panel">
           <img
             class="panel-image"
@@ -189,7 +212,7 @@
         </div>
       </section>
 
-      <section class="column">
+      <section class="column posts-column">
         <div class="panel-frame posts-panel">
           <img
             class="panel-image"
@@ -207,7 +230,7 @@
                 draggable="false"
                 oncontextmenu="return false"
               />
-              <a href="posts/post-1.html">Post Title 1</a>
+              <a href="posts/post-1.html" class="post-link">Post Title 1</a>
             </div>
             <div class="post-entry">
               <img
@@ -217,7 +240,7 @@
                 draggable="false"
                 oncontextmenu="return false"
               />
-              <a href="posts/post-2.html">Post Title 2</a>
+              <a href="posts/post-2.html" class="post-link">Post Title 2</a>
             </div>
             <div class="post-entry">
               <img
@@ -227,13 +250,13 @@
                 draggable="false"
                 oncontextmenu="return false"
               />
-              <a href="posts/post-3.html">Post Title 3</a>
+              <a href="posts/post-3.html" class="post-link">Post Title 3</a>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="column">
+      <section class="column apps-column">
         <div class="panel-frame apps-panel">
           <img
             class="panel-image"
@@ -243,15 +266,17 @@
             oncontextmenu="return false"
           />
           <div class="panel-content">
-            <button
-              class="app-icon js-open-window"
-              type="button"
-              aria-label="Open App 1 placeholder window"
-              data-window-label="App 1 placeholder window"
-            >
-              <span aria-hidden="true">🖥️</span>
-              <span>App 1</span>
-            </button>
+            <div class="app-tray">
+              <button
+                class="app-icon js-open-window"
+                type="button"
+                aria-label="Open App 1 placeholder window"
+                data-window-label="App 1 placeholder window"
+              >
+                <span aria-hidden="true">🖥️</span>
+                <span>App 1</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
