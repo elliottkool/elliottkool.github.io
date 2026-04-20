@@ -5,157 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>elliotts place</title>
     <style>
-      :root {
-        /* Insets tuned to the hand-drawn inner border areas of each frame image. */
-        --posts-content-top: 24%;
-        --posts-content-right: 30%;
-        --posts-content-bottom: 15%;
-        --posts-content-left: 28%;
-        --apps-content-top: 28%;
-        --apps-content-right: 30%;
-        --apps-content-bottom: 20%;
-        --apps-content-left: 30%;
-        --window-content-top: 20%;
-        --window-content-right: 29%;
-        --window-content-bottom: 16%;
-        --window-content-left: 34%;
-        --window-close-top: 9%;
-        --window-close-right: 32%;
-        --window-close-width: 8%;
-        --window-close-height: 12%;
-        --about-panel-width: 220px;
-        --posts-panel-width: 420px;
-        --apps-panel-width: 300px;
-        --window-width: 500px;
-      }
-
       * {
         box-sizing: border-box;
       }
 
       body {
         margin: 0;
-        min-height: 100vh;
-        background: #ffffff;
-        /* TODO: Swap this placeholder with custom font when provided */
-        font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        padding: 0;
+        background: #fff;
+        font-family: 'Comic Sans MS', cursive;
+        overflow-x: hidden;
+      }
+
+      img {
+        mix-blend-mode: multiply;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
       }
 
       .layout {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
         align-items: flex-start;
-        gap: 2rem;
-        min-height: 100vh;
-        padding: 1.5rem;
+        justify-content: center;
+        width: 100vw;
+        padding: 0;
+        gap: 0;
       }
 
       .column {
-        min-height: 0;
-        flex: 0 0 auto;
+        flex: 0 0 33vw;
       }
 
       .panel-frame {
         position: relative;
-        width: fit-content;
+        width: 100%;
       }
 
       .panel-image {
-        display: block;
+        width: 100%;
         height: auto;
-        mix-blend-mode: multiply;
-      }
-
-      .about-panel-image {
-        width: min(var(--about-panel-width), 85vw);
-      }
-
-      .posts-panel-image {
-        width: min(var(--posts-panel-width), 92vw);
-      }
-
-      .apps-panel-image {
-        width: min(var(--apps-panel-width), 90vw);
+        display: block;
+        pointer-events: none;
       }
 
       .panel-content {
         position: absolute;
-        overflow: hidden;
       }
 
       .posts-panel .panel-content {
-        top: var(--posts-content-top);
-        right: var(--posts-content-right);
-        bottom: var(--posts-content-bottom);
-        left: var(--posts-content-left);
+        top: 20%;
+        left: 8%;
+        right: 8%;
+        bottom: 8%;
+      }
+
+      .post-entry {
+        position: relative;
+        width: 92%;
+        margin: 0 auto 0.5rem auto;
+      }
+
+      .post-entry img {
+        width: 92%;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .post-entry a {
+        position: absolute;
+        inset: 0;
         display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .posts-scroll {
-        overflow-y: auto;
-        padding-right: 0.25rem;
-      }
-
-      .post-item {
-        border: 1px solid #444;
-        background: rgba(255, 255, 255, 0.92);
-        margin-bottom: 0.75rem;
-        padding: 0.75rem;
-      }
-
-      .post-item h3 {
-        margin: 0 0 0.5rem;
-      }
-
-      .post-item p {
-        margin: 0 0 0.5rem;
-      }
-
-      .placeholder-button {
-        border: 1px solid #000;
-        background: #f4f4f4;
-        padding: 0.4rem 0.75rem;
-        cursor: pointer;
-        font: inherit;
-      }
-
-      .placeholder-button:hover {
-        background: #e7e7e7;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #000;
+        font-family: 'Comic Sans MS', cursive;
+        font-size: clamp(0.7rem, 1.5vw, 1rem);
+        pointer-events: all;
       }
 
       .apps-panel .panel-content {
-        top: var(--apps-content-top);
-        right: var(--apps-content-right);
-        bottom: var(--apps-content-bottom);
-        left: var(--apps-content-left);
-      }
-
-      .app-tray {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(72px, 1fr));
-        gap: 0.75rem;
-        align-content: start;
-        height: 100%;
-        overflow-y: auto;
+        top: 25%;
+        left: 10%;
+        right: 10%;
+        bottom: 10%;
       }
 
       .app-icon {
-        border: 1px solid #000;
-        background: rgba(255, 255, 255, 0.92);
-        min-height: 80px;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        gap: 0.25rem;
-      }
-
-      .app-icon span[aria-hidden='true'] {
-        font-size: 1.25rem;
+        gap: 4px;
+        pointer-events: all;
+        color: #000;
       }
 
       .modal {
@@ -179,14 +130,14 @@
 
       .window {
         position: relative;
-        width: min(var(--window-width), 90vw);
+        width: min(500px, 90vw);
         z-index: 1;
       }
 
       .window-image {
-        display: block;
         width: 100%;
         height: auto;
+        display: block;
         mix-blend-mode: multiply;
       }
 
@@ -202,10 +153,10 @@
 
       .window-content {
         position: absolute;
-        top: var(--window-content-top);
-        right: var(--window-content-right);
-        bottom: var(--window-content-bottom);
-        left: var(--window-content-left);
+        top: 20%;
+        right: 29%;
+        bottom: 16%;
+        left: 34%;
         overflow-y: auto;
         background: rgba(255, 255, 255, 0.88);
         padding: 0.9rem;
@@ -213,10 +164,10 @@
 
       .window-close-hitbox {
         position: absolute;
-        top: var(--window-close-top);
-        right: var(--window-close-right);
-        width: var(--window-close-width);
-        height: var(--window-close-height);
+        top: 8%;
+        right: 6%;
+        width: 10%;
+        height: 14%;
         border: 0;
         padding: 0;
         background: transparent;
@@ -228,67 +179,79 @@
     <main class="layout">
       <section class="column">
         <div class="panel-frame about-panel">
-          <img class="panel-image about-panel-image" src="assets/about.png" alt="About panel" />
+          <img
+            class="panel-image"
+            src="assets/about.png"
+            alt="About panel"
+            draggable="false"
+            oncontextmenu="return false"
+          />
         </div>
       </section>
 
       <section class="column">
         <div class="panel-frame posts-panel">
-          <img class="panel-image posts-panel-image" src="assets/posts.png" alt="Posts panel" />
+          <img
+            class="panel-image"
+            src="assets/posts.png"
+            alt="Posts panel"
+            draggable="false"
+            oncontextmenu="return false"
+          />
           <div class="panel-content">
-            <!-- TODO: Replace placeholder posts with real post content/links -->
-            <div class="posts-scroll">
-              <article class="post-item">
-                <h3>Post Title 1</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                  eiusmod tempor incididunt ut labore.
-                </p>
-                <!-- TODO: Replace placeholder button styling with hand-drawn image button -->
-                <button class="placeholder-button" type="button">read more</button>
-              </article>
-
-              <article class="post-item">
-                <h3>Post Title 2</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <button class="placeholder-button" type="button">read more</button>
-              </article>
-
-              <article class="post-item">
-                <h3>Post Title 3</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <button class="placeholder-button" type="button">read more</button>
-              </article>
+            <div class="post-entry">
+              <img
+                src="assets/post.png"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+                oncontextmenu="return false"
+              />
+              <a href="posts/post-1.html">Post Title 1</a>
             </div>
-
-            <button class="placeholder-button" type="button">View All Posts</button>
+            <div class="post-entry">
+              <img
+                src="assets/post.png"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+                oncontextmenu="return false"
+              />
+              <a href="posts/post-2.html">Post Title 2</a>
+            </div>
+            <div class="post-entry">
+              <img
+                src="assets/post.png"
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+                oncontextmenu="return false"
+              />
+              <a href="posts/post-3.html">Post Title 3</a>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="column">
         <div class="panel-frame apps-panel">
-          <img class="panel-image apps-panel-image" src="assets/apptray.png" alt="Apps panel" />
+          <img
+            class="panel-image"
+            src="assets/apptray.png"
+            alt="Apps panel"
+            draggable="false"
+            oncontextmenu="return false"
+          />
           <div class="panel-content">
-            <div class="app-tray">
-              <button
-                class="app-icon js-open-window"
-                type="button"
-                aria-label="Open App 1 placeholder window"
-                data-window-label="App 1 placeholder window"
-              >
-                <span aria-hidden="true">🖥️</span>
-                <span>App 1</span>
-              </button>
-
-              <!-- TODO: Add additional app icons (about 6 total planned) -->
-            </div>
+            <button
+              class="app-icon js-open-window"
+              type="button"
+              aria-label="Open App 1 placeholder window"
+              data-window-label="App 1 placeholder window"
+            >
+              <span aria-hidden="true">🖥️</span>
+              <span>App 1</span>
+            </button>
           </div>
         </div>
       </section>
@@ -297,16 +260,28 @@
     <div class="modal" id="app-window" aria-hidden="true">
       <div class="modal-backdrop"></div>
       <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
-        <img class="window-image window-image-default" src="assets/window.png" alt="" aria-hidden="true" />
-        <img class="window-image window-image-hover" src="assets/windowhover.png" alt="" aria-hidden="true" />
+        <img
+          class="window-image window-image-default"
+          src="assets/window.png"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+          oncontextmenu="return false"
+        />
+        <img
+          class="window-image window-image-hover"
+          src="assets/windowhover.png"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+          oncontextmenu="return false"
+        />
         <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
         <div class="window-content">
-          <!-- TODO: Replace this placeholder text with real app content -->
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.
           </p>
         </div>
       </div>
