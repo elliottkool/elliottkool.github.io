@@ -268,20 +268,32 @@
       const closeHitbox = modal.querySelector('.window-close-hitbox');
       const backdrop = modal.querySelector('.modal-backdrop');
       const openButtons = document.querySelectorAll('.js-open-window');
+      let lastTriggerButton = null;
 
-      function openWindow() {
+      function getFocusableInModal() {
+        return modal.querySelectorAll(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])'
+        );
+      }
+
+      function openWindow(triggerButton) {
+        lastTriggerButton = triggerButton;
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
+        closeHitbox.focus();
       }
 
       function closeWindow() {
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         windowFrame.classList.remove('is-hovering-close');
+        if (lastTriggerButton) {
+          lastTriggerButton.focus();
+        }
       }
 
       openButtons.forEach((button) => {
-        button.addEventListener('click', openWindow);
+        button.addEventListener('click', () => openWindow(button));
       });
 
       closeHitbox.addEventListener('mouseenter', () => {
@@ -304,6 +316,25 @@
       backdrop.addEventListener('click', closeWindow);
 
       document.addEventListener('keydown', (event) => {
+        if (event.key === 'Tab' && modal.classList.contains('is-open')) {
+          const focusable = getFocusableInModal();
+          if (!focusable.length) {
+            event.preventDefault();
+            return;
+          }
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+
         if (event.key === 'Escape' && modal.classList.contains('is-open')) {
           closeWindow();
         }
