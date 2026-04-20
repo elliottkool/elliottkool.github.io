@@ -234,7 +234,12 @@
         <div class="panel apps-panel">
           <div class="panel-content">
             <div class="app-tray">
-              <button class="app-icon js-open-window" type="button" aria-label="Open App 1">
+              <button
+                class="app-icon js-open-window"
+                type="button"
+                aria-label="Open App 1 placeholder window"
+                data-window-label="App 1 placeholder window"
+              >
                 <span aria-hidden="true">🖥️</span>
                 <span>App 1</span>
               </button>
@@ -248,7 +253,7 @@
 
     <div class="modal" id="app-window" aria-hidden="true">
       <div class="modal-backdrop"></div>
-      <div class="window" role="dialog" aria-modal="true" aria-label="App window placeholder">
+      <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
         <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
         <div class="window-content">
           <!-- TODO: Replace this placeholder text with real app content -->
@@ -265,19 +270,23 @@
     <script>
       const modal = document.getElementById('app-window');
       const windowFrame = modal.querySelector('.window');
+      const FOCUSABLE_SELECTOR =
+        'button:not([disabled]), [role="button"], [href], input, select, textarea, details, audio[controls], video[controls], [tabindex]:not([tabindex="-1"])';
       const closeHitbox = modal.querySelector('.window-close-hitbox');
       const backdrop = modal.querySelector('.modal-backdrop');
       const openButtons = document.querySelectorAll('.js-open-window');
       let lastTriggerButton = null;
 
       function getFocusableInModal() {
-        return modal.querySelectorAll(
-          'button:not([disabled]), [role="button"], [href], input, select, textarea, details, audio[controls], video[controls], [tabindex]:not([tabindex="-1"])'
-        );
+        return modal.querySelectorAll(FOCUSABLE_SELECTOR);
       }
 
       function openWindow(triggerButton) {
         lastTriggerButton = triggerButton;
+        windowFrame.setAttribute(
+          'aria-label',
+          triggerButton?.dataset.windowLabel || 'App window placeholder'
+        );
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         closeHitbox.focus();
