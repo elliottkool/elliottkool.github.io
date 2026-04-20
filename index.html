@@ -6,11 +6,10 @@
     <title>elliotts place</title>
     <style>
       :root {
-        /* Insets tuned to the hand-drawn inner border areas of each frame image. */
         --posts-content-top: 24%;
-        --posts-content-right: 30%;
-        --posts-content-bottom: 15%;
-        --posts-content-left: 28%;
+        --posts-content-right: 23%;
+        --posts-content-bottom: 17%;
+        --posts-content-left: 23%;
         --apps-content-top: 28%;
         --apps-content-right: 30%;
         --apps-content-bottom: 20%;
@@ -23,10 +22,8 @@
         --window-close-right: 32%;
         --window-close-width: 8%;
         --window-close-height: 12%;
-        --about-panel-width: 220px;
-        --posts-panel-width: 420px;
-        --apps-panel-width: 300px;
         --window-width: 500px;
+        --column-max-width: 500px;
       }
 
       * {
@@ -43,40 +40,35 @@
 
       .layout {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
         align-items: flex-start;
-        gap: 2rem;
+        justify-content: center;
+        gap: 1rem;
         min-height: 100vh;
-        padding: 1.5rem;
+        padding: 1rem;
       }
 
       .column {
         min-height: 0;
-        flex: 0 0 auto;
+        flex: 1 1 0;
+        min-width: 0;
       }
 
       .panel-frame {
         position: relative;
-        width: fit-content;
+        width: 100%;
+      }
+
+      img {
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
       }
 
       .panel-image {
         display: block;
+        width: 100%;
         height: auto;
         mix-blend-mode: multiply;
-      }
-
-      .about-panel-image {
-        width: min(var(--about-panel-width), 85vw);
-      }
-
-      .posts-panel-image {
-        width: min(var(--posts-panel-width), 92vw);
-      }
-
-      .apps-panel-image {
-        width: min(var(--apps-panel-width), 90vw);
       }
 
       .panel-content {
@@ -91,39 +83,50 @@
         left: var(--posts-content-left);
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.5rem;
       }
 
-      .posts-scroll {
-        overflow-y: auto;
-        padding-right: 0.25rem;
+      .posts-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
       }
 
-      .post-item {
-        border: 1px solid #444;
-        background: rgba(255, 255, 255, 0.92);
-        margin-bottom: 0.75rem;
-        padding: 0.75rem;
+      .post-entry-wrapper {
+        position: relative;
+        width: 100%;
       }
 
-      .post-item h3 {
-        margin: 0 0 0.5rem;
+      .post-entry-wrapper img {
+        width: 100%;
+        height: auto;
+        mix-blend-mode: multiply;
       }
 
-      .post-item p {
-        margin: 0 0 0.5rem;
-      }
-
-      .placeholder-button {
-        border: 1px solid #000;
-        background: #f4f4f4;
-        padding: 0.4rem 0.75rem;
+      .post-entry-link {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 18%;
+        color: #000;
+        font-size: clamp(0.7rem, 1.4vw, 1rem);
+        text-decoration: none;
+        text-align: center;
+        line-height: 1.2;
+        background: transparent;
         cursor: pointer;
-        font: inherit;
       }
 
-      .placeholder-button:hover {
-        background: #e7e7e7;
+      .post-entry-link:hover,
+      .post-entry-link:focus-visible {
+        text-decoration: underline;
+      }
+
+      .post-entry-link:focus-visible {
+        outline: 2px dashed #000;
+        outline-offset: -2px;
       }
 
       .apps-panel .panel-content {
@@ -222,59 +225,90 @@
         background: transparent;
         cursor: pointer;
       }
+
+      @media (max-width: 900px) {
+        .layout {
+          flex-wrap: wrap;
+        }
+
+        .column {
+          flex-basis: min(var(--column-max-width), 100%);
+        }
+      }
     </style>
   </head>
   <body>
     <main class="layout">
       <section class="column">
         <div class="panel-frame about-panel">
-          <img class="panel-image about-panel-image" src="assets/about.png" alt="About panel" />
+          <img
+            class="panel-image about-panel-image"
+            src="assets/about.png"
+            draggable="false"
+            oncontextmenu="return false"
+            alt="About panel"
+          />
         </div>
       </section>
 
       <section class="column">
         <div class="panel-frame posts-panel">
-          <img class="panel-image posts-panel-image" src="assets/posts.png" alt="Posts panel" />
+          <img
+            class="panel-image posts-panel-image"
+            src="assets/posts.png"
+            draggable="false"
+            oncontextmenu="return false"
+            alt="Posts panel"
+          />
           <div class="panel-content">
-            <!-- TODO: Replace placeholder posts with real post content/links -->
-            <div class="posts-scroll">
-              <article class="post-item">
-                <h3>Post Title 1</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                  eiusmod tempor incididunt ut labore.
-                </p>
-                <!-- TODO: Replace placeholder button styling with hand-drawn image button -->
-                <button class="placeholder-button" type="button">read more</button>
-              </article>
-
-              <article class="post-item">
-                <h3>Post Title 2</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                <button class="placeholder-button" type="button">read more</button>
-              </article>
-
-              <article class="post-item">
-                <h3>Post Title 3</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <button class="placeholder-button" type="button">read more</button>
-              </article>
+            <div class="posts-list">
+              <div class="post-entry-wrapper">
+                <img
+                  src="assets/post.png"
+                  draggable="false"
+                  oncontextmenu="return false"
+                  alt=""
+                  role="presentation"
+                  aria-hidden="true"
+                />
+                <a href="posts/post-1.html" class="post-entry-link">Post Title 1</a>
+              </div>
+              <div class="post-entry-wrapper">
+                <img
+                  src="assets/post.png"
+                  draggable="false"
+                  oncontextmenu="return false"
+                  alt=""
+                  role="presentation"
+                  aria-hidden="true"
+                />
+                <a href="posts/post-2.html" class="post-entry-link">Post Title 2</a>
+              </div>
+              <div class="post-entry-wrapper">
+                <img
+                  src="assets/post.png"
+                  draggable="false"
+                  oncontextmenu="return false"
+                  alt=""
+                  role="presentation"
+                  aria-hidden="true"
+                />
+                <a href="posts/post-3.html" class="post-entry-link">Post Title 3</a>
+              </div>
             </div>
-
-            <button class="placeholder-button" type="button">View All Posts</button>
           </div>
         </div>
       </section>
 
       <section class="column">
         <div class="panel-frame apps-panel">
-          <img class="panel-image apps-panel-image" src="assets/apptray.png" alt="Apps panel" />
+          <img
+            class="panel-image apps-panel-image"
+            src="assets/apptray.png"
+            draggable="false"
+            oncontextmenu="return false"
+            alt="Apps panel"
+          />
           <div class="panel-content">
             <div class="app-tray">
               <button
@@ -297,8 +331,22 @@
     <div class="modal" id="app-window" aria-hidden="true">
       <div class="modal-backdrop"></div>
       <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
-        <img class="window-image window-image-default" src="assets/window.png" alt="" aria-hidden="true" />
-        <img class="window-image window-image-hover" src="assets/windowhover.png" alt="" aria-hidden="true" />
+        <img
+          class="window-image window-image-default"
+          src="assets/window.png"
+          draggable="false"
+          oncontextmenu="return false"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="window-image window-image-hover"
+          src="assets/windowhover.png"
+          draggable="false"
+          oncontextmenu="return false"
+          alt=""
+          aria-hidden="true"
+        />
         <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
         <div class="window-content">
           <!-- TODO: Replace this placeholder text with real app content -->
