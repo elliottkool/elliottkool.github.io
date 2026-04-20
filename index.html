@@ -22,6 +22,10 @@
         --window-close-right: 32%;
         --window-close-width: 8%;
         --window-close-height: 12%;
+        --about-panel-width: 220px;
+        --posts-panel-width: 420px;
+        --apps-panel-width: 300px;
+        --window-width: 500px;
       }
 
       * {
@@ -63,15 +67,15 @@
       }
 
       .about-panel-image {
-        width: min(220px, 85vw);
+        width: min(var(--about-panel-width), 85vw);
       }
 
       .posts-panel-image {
-        width: min(420px, 92vw);
+        width: min(var(--posts-panel-width), 92vw);
       }
 
       .apps-panel-image {
-        width: min(300px, 90vw);
+        width: min(var(--apps-panel-width), 90vw);
       }
 
       .panel-content {
@@ -174,7 +178,7 @@
 
       .window {
         position: relative;
-        width: min(500px, 90vw);
+        width: min(var(--window-width), 90vw);
         z-index: 1;
       }
 
