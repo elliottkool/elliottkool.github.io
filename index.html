@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>elliotts place</title>
     <style>
-      :root {
-        --panel-header-height: 78px;
-      }
-
       * {
         box-sizing: border-box;
       }
@@ -22,46 +18,53 @@
       }
 
       .layout {
-        display: grid;
-        grid-template-columns: 20% 50% 30%;
-        gap: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
         min-height: 100vh;
-        padding: 1rem;
+        padding: 1.5rem;
       }
 
       .column {
         min-height: 0;
+        flex: 0 0 auto;
+      }
+
+      .panel-frame {
+        position: relative;
+        width: fit-content;
+      }
+
+      .panel-image {
+        display: block;
+        height: auto;
+        mix-blend-mode: multiply;
       }
 
       .about-panel-image {
-        height: 100%;
-        width: 100%;
-        display: block;
+        width: min(220px, 85vw);
       }
 
-      .panel {
-        position: relative;
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-        background-position: center;
-        width: 100%;
-        height: 100%;
+      .posts-panel-image {
+        width: min(420px, 92vw);
+      }
+
+      .apps-panel-image {
+        width: min(300px, 90vw);
       }
 
       .panel-content {
         position: absolute;
-        top: var(--panel-header-height);
-        right: 1rem;
-        bottom: 1rem;
-        left: 1rem;
         overflow: hidden;
       }
 
-      .posts-panel {
-        background-image: url('assets/posts.png');
-      }
-
       .posts-panel .panel-content {
+        top: 24%;
+        right: 30%;
+        bottom: 15%;
+        left: 28%;
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
@@ -99,8 +102,11 @@
         background: #e7e7e7;
       }
 
-      .apps-panel {
-        background-image: url('assets/apptray.png');
+      .apps-panel .panel-content {
+        top: 28%;
+        right: 30%;
+        bottom: 20%;
+        left: 30%;
       }
 
       .app-tray {
@@ -149,22 +155,37 @@
 
       .window {
         position: relative;
-        width: min(600px, 90vw);
-        height: min(420px, 85vh);
-        background: url('assets/window.png') no-repeat center / 100% 100%;
+        width: min(500px, 90vw);
         z-index: 1;
       }
 
-      .window.is-hovering-close {
-        background-image: url('assets/windowhover.png');
+      .window-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        mix-blend-mode: multiply;
+      }
+
+      .window-image-hover {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+      }
+
+      .window.is-hovering-close .window-image-hover {
+        opacity: 1;
+      }
+
+      .window.is-hovering-close .window-image-default {
+        opacity: 0;
       }
 
       .window-content {
         position: absolute;
-        top: 72px;
-        right: 1rem;
-        bottom: 1rem;
-        left: 1rem;
+        top: 20%;
+        right: 29%;
+        bottom: 16%;
+        left: 34%;
         overflow-y: auto;
         background: rgba(255, 255, 255, 0.88);
         padding: 0.9rem;
@@ -172,10 +193,10 @@
 
       .window-close-hitbox {
         position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        width: 48px;
-        height: 40px;
+        top: 9%;
+        right: 32%;
+        width: 8%;
+        height: 12%;
         border: 0;
         padding: 0;
         background: transparent;
@@ -186,12 +207,14 @@
   <body>
     <main class="layout">
       <section class="column">
-        <!-- ABOUT: placeholder -->
-        <img class="about-panel-image" src="assets/about.png" alt="About panel" />
+        <div class="panel-frame about-panel">
+          <img class="panel-image about-panel-image" src="assets/about.png" alt="About panel" />
+        </div>
       </section>
 
       <section class="column">
-        <div class="panel posts-panel">
+        <div class="panel-frame posts-panel">
+          <img class="panel-image posts-panel-image" src="assets/posts.png" alt="Posts panel" />
           <div class="panel-content">
             <!-- TODO: Replace placeholder posts with real post content/links -->
             <div class="posts-scroll">
@@ -230,7 +253,8 @@
       </section>
 
       <section class="column">
-        <div class="panel apps-panel">
+        <div class="panel-frame apps-panel">
+          <img class="panel-image apps-panel-image" src="assets/apptray.png" alt="Apps panel" />
           <div class="panel-content">
             <div class="app-tray">
               <button
@@ -253,6 +277,8 @@
     <div class="modal" id="app-window" aria-hidden="true">
       <div class="modal-backdrop"></div>
       <div class="window" role="dialog" aria-modal="true" aria-label="App 1 placeholder window">
+        <img class="window-image window-image-default" src="assets/window.png" alt="" aria-hidden="true" />
+        <img class="window-image window-image-hover" src="assets/windowhover.png" alt="" aria-hidden="true" />
         <button class="window-close-hitbox" type="button" aria-label="Close window"></button>
         <div class="window-content">
           <!-- TODO: Replace this placeholder text with real app content -->
