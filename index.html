@@ -123,6 +123,11 @@
         text-decoration: underline;
       }
 
+      .post-entry-link:focus-visible {
+        outline: 2px dashed #000;
+        outline-offset: -2px;
+      }
+
       .apps-panel .panel-content {
         top: var(--apps-content-top);
         right: var(--apps-content-right);
@@ -257,15 +262,36 @@
           <div class="panel-content">
             <div class="posts-list">
               <div class="post-entry-wrapper">
-                <img src="assets/post.png" draggable="false" oncontextmenu="return false" alt="" />
+                <img
+                  src="assets/post.png"
+                  draggable="false"
+                  oncontextmenu="return false"
+                  alt=""
+                  role="presentation"
+                  aria-hidden="true"
+                />
                 <a href="posts/post-1.html" class="post-entry-link">Post Title 1</a>
               </div>
               <div class="post-entry-wrapper">
-                <img src="assets/post.png" draggable="false" oncontextmenu="return false" alt="" />
+                <img
+                  src="assets/post.png"
+                  draggable="false"
+                  oncontextmenu="return false"
+                  alt=""
+                  role="presentation"
+                  aria-hidden="true"
+                />
                 <a href="posts/post-2.html" class="post-entry-link">Post Title 2</a>
               </div>
               <div class="post-entry-wrapper">
-                <img src="assets/post.png" draggable="false" oncontextmenu="return false" alt="" />
+                <img
+                  src="assets/post.png"
+                  draggable="false"
+                  oncontextmenu="return false"
+                  alt=""
+                  role="presentation"
+                  aria-hidden="true"
+                />
                 <a href="posts/post-3.html" class="post-entry-link">Post Title 3</a>
               </div>
             </div>
