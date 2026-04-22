@@ -10,7 +10,11 @@
       * { box-sizing: border-box; }
       body { margin: 0; padding: 0; background: #fff; font-family: 'Elliottfont', cursive; overflow-x: hidden; }
       img { user-select: none; -webkit-user-drag: none; pointer-events: none; display: block; }
-      .layout { display: flex; align-items: flex-start; justify-content: center; width: 100vw; padding-top: 3rem; }
+      .menu-bar { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.5rem 0.75rem; z-index: 10000; }
+      .menu-icon-link { position: relative; display: inline-flex; text-decoration: none; pointer-events: all; }
+      .menu-icon-link::before { content: ''; position: absolute; inset: -8px; background: #000; z-index: 0; }
+      .menu-icon-image { position: relative; z-index: 1; display: block; pointer-events: all; }
+      .layout { display: flex; align-items: flex-start; justify-content: center; width: 100vw; padding-top: 5rem; }
       .column { flex: 0 0 38vw; margin-left: -4vw; }
       .column:first-child { margin-left: 0; }
       .panel-frame { position: relative; width: 100%; }
@@ -34,13 +38,27 @@
     </style>
   </head>
   <body>
+    <nav class="menu-bar" aria-label="Main menu">
+      <a class="menu-icon-link js-menu-icon-link" href="index.html" aria-label="Home">
+        <img class="js-menu-icon menu-icon-image" src="assets/home.png" data-default-src="assets/home.png" data-hover-src="assets/homesel.png" alt="Home icon" draggable="false" oncontextmenu="return false" />
+      </a>
+      <a class="menu-icon-link js-menu-icon-link" href="#about" aria-label="About">
+        <img class="js-menu-icon menu-icon-image" src="assets/about.png" data-default-src="assets/about.png" data-hover-src="assets/aboutsel.png" alt="About icon" draggable="false" oncontextmenu="return false" />
+      </a>
+      <a class="menu-icon-link js-menu-icon-link" href="#words" aria-label="Words">
+        <img class="js-menu-icon menu-icon-image" src="assets/words.png" data-default-src="assets/words.png" data-hover-src="assets/wordssel.png" alt="Words icon" draggable="false" oncontextmenu="return false" />
+      </a>
+      <a class="menu-icon-link js-menu-icon-link" href="#pictures" aria-label="Pictures">
+        <img class="js-menu-icon menu-icon-image" src="assets/pictures.png" data-default-src="assets/pictures.png" data-hover-src="assets/picturessel.png" alt="Pictures icon" draggable="false" oncontextmenu="return false" />
+      </a>
+    </nav>
     <main class="layout">
-      <section class="column about-column">
+      <section class="column about-column" id="about">
         <div class="panel-frame about-panel">
           <img class="panel-image" src="assets/aboutOLD.png" alt="About panel" draggable="false" oncontextmenu="return false" />
         </div>
       </section>
-      <section class="column posts-column">
+      <section class="column posts-column" id="words">
         <div class="panel-frame posts-panel">
           <img class="panel-image" src="assets/posts.png" alt="Posts panel" draggable="false" oncontextmenu="return false" />
           <div class="panel-content">
@@ -59,7 +77,7 @@
           </div>
         </div>
       </section>
-      <section class="column apps-column">
+      <section class="column apps-column" id="pictures">
         <div class="panel-frame apps-panel">
           <img class="panel-image" src="assets/apptray.png" alt="Apps panel" draggable="false" oncontextmenu="return false" />
           <div class="panel-content">
@@ -91,8 +109,12 @@
       const closeHitbox = modal.querySelector('.window-close-hitbox');
       const backdrop = modal.querySelector('.modal-backdrop');
       const openButtons = document.querySelectorAll('.js-open-window');
+      const menuIconLinks = document.querySelectorAll('.js-menu-icon-link');
       let lastTriggerButton = null;
       function getFocusableInModal() { return modal.querySelectorAll(FOCUSABLE_SELECTOR); }
+      function setMenuIconState(icon, isHovering) {
+        icon.setAttribute('src', isHovering ? icon.dataset.hoverSrc : icon.dataset.defaultSrc);
+      }
       function openWindow(triggerButton) {
         lastTriggerButton = triggerButton;
         windowFrame.setAttribute('aria-label', triggerButton?.dataset.windowLabel || 'App window placeholder');
@@ -107,6 +129,13 @@
         if (lastTriggerButton) { lastTriggerButton.focus(); }
       }
       openButtons.forEach((button) => { button.addEventListener('click', () => openWindow(button)); });
+      menuIconLinks.forEach((link) => {
+        const icon = link.querySelector('.js-menu-icon');
+        link.addEventListener('mouseenter', () => setMenuIconState(icon, true));
+        link.addEventListener('mouseleave', () => setMenuIconState(icon, false));
+        link.addEventListener('focus', () => setMenuIconState(icon, true));
+        link.addEventListener('blur', () => setMenuIconState(icon, false));
+      });
       closeHitbox.addEventListener('mouseenter', () => { windowFrame.classList.add('is-hovering-close'); });
       closeHitbox.addEventListener('mouseleave', () => { windowFrame.classList.remove('is-hovering-close'); });
       closeHitbox.addEventListener('focus', () => { windowFrame.classList.add('is-hovering-close'); });
